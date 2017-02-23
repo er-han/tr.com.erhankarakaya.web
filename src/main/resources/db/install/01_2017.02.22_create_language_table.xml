@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="clobType" value="NCLOB" dbms="oracle"></property>
+    <property name="nvarcharType" value="NVARCHAR2(300)" dbms="oracle"></property>
+    <property name="varcharType" value="NVARCHAR2" dbms="oracle"></property>
+    <property name="integerType" value="INTEGER" dbms="oracle"></property>
+    <property name="tinyIntegerType" value="NUMBER(3)" dbms="oracle"></property>
+    <property name="shortIntegerType" value="SHORTINTEGER" dbms="oracle"></property>
+    <property name="longIntegerType" value="LONGINTEGER" dbms="oracle"></property>
+    <property name="autoIncrement" value="false" dbms="oracle"></property>
+
+    <changeSet id="create-language-table" author="Erhan Karakaya">
+        <comment>
+            1. Creates 'LANGUAGE' table.
+            2. Set 'ID' column as PrimaryKey.
+            3. Set 'ID' column as NotNull.
+        </comment>
+
+        <createTable tableName="LANGUAGE">
+            <column name="ID" type="${integerType}" autoIncrement="${autoIncrement}"/>
+            <column name="NAME" type="NVARCHAR2(120)"/>
+            <column name="CODE" type="${varcharType}(2)"/>
+            <column name="LOCALE" type="${varcharType}(5)"/>
+        </createTable>
+
+        <addPrimaryKey tableName="LANGUAGE" columnNames="ID" constraintName="PK_LanguageId"/>
+        <addNotNullConstraint tableName="LANGUAGE" columnName="ID"/>
+    </changeSet>
+
+</databaseChangeLog>
