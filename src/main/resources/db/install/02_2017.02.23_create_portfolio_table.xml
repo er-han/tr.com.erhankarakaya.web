@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="create-portfolio-table" author="Erhan Karakaya">
+        <comment>
+            1. Creates 'PORTFOLIO' table.
+            2. Set 'ID' column as PrimaryKey.
+            3. Set 'ID' column as NotNull.
+            4. Set 'LANGUAG_ID' column as ForeignKey referenced to 'LANGUAGE' table's 'ID' column.
+        </comment>
+
+        <createTable tableName="PORTFOLIO">
+            <column name="ID" type="${integerType}" autoIncrement="${autoIncrement}"/>
+            <column name="TITLE" type="${nvarcharType}(500)"/>
+            <column name="DESCRIPTION" type="${clobType}"/>
+            <column name="IMAGE_FILE_NAME" type="${varcharType}(200)"/>
+            <column name="LANGUAGE_ID" type="${integerType}"/>
+            <column name="ORDERING_NUMBER" type="${integerType}"/>
+        </createTable>
+
+        <addPrimaryKey tableName="PORTFOLIO" columnNames="ID" constraintName="PK_Portfolio_Id"/>
+
+        <addNotNullConstraint tableName="PORTFOLIO" columnName="ID"/>
+
+        <addForeignKeyConstraint baseTableName="PORTFOLIO" baseColumnNames="LANGUAGE_ID" constraintName="FK_Portfolio_Language"
+                                 referencedTableName="LANGUAGE"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+</databaseChangeLog>
