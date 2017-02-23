@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="insert-initial-data-into-language" author="Erhan Karakaya">
+        <comment>
+            insert initial data into Language table.
+        </comment>
+
+        <insert tableName="LANGUAGE">
+            <column name="ID" value="1"/>
+            <column name="NAME" value="Türkçe"/>
+            <column name="CODE" value="tr"/>
+            <column name="LOCALE" value="tr-TR"/>
+        </insert>
+
+        <insert tableName="LANGUAGE">
+            <column name="ID" value="2"/>
+            <column name="NAME" value="İngilizce"/>
+            <column name="CODE" value="en"/>
+            <column name="LOCALE" value="en-US"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
