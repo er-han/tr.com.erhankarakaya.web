@@ -15,11 +15,14 @@
     <property name="longIntegerType" value="LONGINTEGER" dbms="oracle"></property>
     <property name="autoIncrement" value="false" dbms="oracle"></property>
 
-    <changeSet id="create-language-table" author="Erhan Karakaya">
+    <changeSet id="create-language-table" author="Erhan Karakaya" failOnError="true">
         <comment>
             1. Create 'LANGUAGE' table.
             2. Set 'ID' column as PrimaryKey.
             3. Set 'ID' column as NotNull.
+            4. Set 'NAME' column as NotNull.
+            5. Set 'CODE' column as NotNull.
+            6. Set 'LOCALE' column as NotNull.
         </comment>
 
         <createTable tableName="LANGUAGE">
@@ -30,7 +33,26 @@
         </createTable>
 
         <addPrimaryKey tableName="LANGUAGE" columnNames="ID" constraintName="PK_Language_Id"/>
-        <addNotNullConstraint tableName="LANGUAGE" columnName="ID"/>
+
+        <!--<addNotNullConstraint tableName="LANGUAGE" columnName="ID"/>-->
+
+        <sql dbms="oracle">
+            ALTER TABLE LANGUAGE
+            ADD CONSTRAINT NN_LANGUAGE_ID
+            CHECK (ID IS NOT NULL);
+
+            ALTER TABLE LANGUAGE
+            ADD CONSTRAINT NN_LANGUAGE_NAME
+            CHECK (NAME IS NOT NULL);
+
+            ALTER TABLE LANGUAGE
+            ADD CONSTRAINT NN_LANGUAGE_CODE
+            CHECK (CODE IS NOT NULL);
+
+            ALTER TABLE LANGUAGE
+            ADD CONSTRAINT NN_LANGUAGE_LOCALE
+            CHECK (LOCALE IS NOT NULL);
+        </sql>
     </changeSet>
 
 </databaseChangeLog>

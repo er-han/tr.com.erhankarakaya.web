@@ -11,7 +11,9 @@
             1. Creates 'PORTFOLIO' table.
             2. Set 'ID' column as PrimaryKey.
             3. Set 'ID' column as NotNull.
-            4. Set 'LANGUAG_ID' column as ForeignKey referenced to 'LANGUAGE' table's 'ID' column.
+            4. Set 'LANGUAGE_ID' column as ForeignKey referenced to 'LANGUAGE' table's 'ID' column.
+            5. Set 'TITLE' column as NotNull.
+            6. Set 'LANGUAGE_ID' column as NotNull.
         </comment>
 
         <createTable tableName="PORTFOLIO">
@@ -25,10 +27,22 @@
 
         <addPrimaryKey tableName="PORTFOLIO" columnNames="ID" constraintName="PK_Portfolio_Id"/>
 
-        <addNotNullConstraint tableName="PORTFOLIO" columnName="ID"/>
-
         <addForeignKeyConstraint baseTableName="PORTFOLIO" baseColumnNames="LANGUAGE_ID" constraintName="FK_Portfolio_Language"
                                  referencedTableName="LANGUAGE"
                                  referencedColumnNames="ID"/>
+
+        <sql dbms="oracle">
+            ALTER TABLE PORTFOLIO
+            ADD CONSTRAINT NN_PORTFOLIO_ID
+            CHECK (ID IS NOT NULL);
+
+            ALTER TABLE PORTFOLIO
+            ADD CONSTRAINT NN_PORTFOLIO_TITLE
+            CHECK (TITLE IS NOT NULL);
+
+            ALTER TABLE PORTFOLIO
+            ADD CONSTRAINT NN_PORTFOLIO_LANGUAGE_ID
+            CHECK (LANGUAGE_ID IS NOT NULL);
+        </sql>
     </changeSet>
 </databaseChangeLog>
