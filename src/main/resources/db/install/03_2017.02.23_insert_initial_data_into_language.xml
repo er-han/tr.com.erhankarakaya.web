@@ -8,7 +8,8 @@
 
     <changeSet id="insert-initial-data-into-language" author="Erhan Karakaya">
         <comment>
-            insert initial data into Language table.
+            1. insert initial data into LANGUAGE table
+            2. increase sequence of LANGUAGE table (dbms=oracle)
         </comment>
 
         <insert tableName="LANGUAGE">
@@ -24,6 +25,11 @@
             <column name="CODE" value="en"/>
             <column name="LOCALE" value="en-US"/>
         </insert>
+
+        <sql dbms="oracle">
+            select SEQ_LANGUAGE_ID.nextval from dual;
+            select SEQ_LANGUAGE_ID.nextval from dual;
+        </sql>
     </changeSet>
 
 </databaseChangeLog>

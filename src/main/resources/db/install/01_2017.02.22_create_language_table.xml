@@ -54,5 +54,13 @@
             CHECK (LOCALE IS NOT NULL);
         </sql>
     </changeSet>
+    
+    <changeSet id="add-sequence-for-language-id" author="Erhan Karakaya" dbms="oracle">
+        <comment>
+            Add sequence for ID column of LANGUAGE table
+        </comment>
+
+        <createSequence sequenceName="SEQ_LANGUAGE_ID" startValue="1" incrementBy="1"/>
+    </changeSet>
 
 </databaseChangeLog>

@@ -8,7 +8,8 @@
 
     <changeSet id="insert-initial-data-into-portfolio" author="Erhan Karakaya" context="default">
         <comment>
-            insert test data into Portfolio table.
+            1. insert test data into Portfolio table
+            2. increase SEQUENCE val
         </comment>
 
         <insert tableName="PORTFOLIO">
@@ -46,6 +47,13 @@
             <column name="ORDERING_NUMBER" value="2"/>
             <column name="TITLE" value="Portfolio 2"/>
         </insert>
+
+        <sql dbms="oracle">
+            select SEQ_PORTFOLIO_ID.nextval from dual;
+            select SEQ_PORTFOLIO_ID.nextval from dual;
+            select SEQ_PORTFOLIO_ID.nextval from dual;
+            select SEQ_PORTFOLIO_ID.nextval from dual;
+        </sql>
 
     </changeSet>
 

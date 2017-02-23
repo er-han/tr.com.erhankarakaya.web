@@ -45,4 +45,12 @@
             CHECK (LANGUAGE_ID IS NOT NULL);
         </sql>
     </changeSet>
+
+    <changeSet id="add-sequence-for-portfolio-id" author="Erhan Karakaya" dbms="oracle">
+        <comment>
+            Add sequence for ID column of PORTFOLIO table
+        </comment>
+
+        <createSequence sequenceName="SEQ_PORTFOLIO_ID" startValue="1" incrementBy="1"/>
+    </changeSet>
 </databaseChangeLog>
