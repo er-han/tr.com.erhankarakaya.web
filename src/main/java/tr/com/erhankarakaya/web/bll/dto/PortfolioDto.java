@@ -1,13 +1,12 @@
 package tr.com.erhankarakaya.web.bll.dto;
 
-import tr.com.erhankarakaya.web.common.builder.Buildable;
 import tr.com.erhankarakaya.web.common.builder.Builder;
 import tr.com.erhankarakaya.web.common.enums.LanguageEnum;
 
 /**
  * Created by erhan.karakaya on 2/24/2017.
  */
-public class PortfolioDto extends BaseDto implements Buildable {
+public class PortfolioDto extends BaseDto {
 
   //region constructors
   private PortfolioDto() {
@@ -77,14 +76,13 @@ public class PortfolioDto extends BaseDto implements Buildable {
 
   //region builder
 
-  @Override
-  public PortfolioDtoBuilder getBuilder() {
-    return new PortfolioDtoBuilder();
-  }
-
   public static class PortfolioDtoBuilder implements Builder<PortfolioDto> {
 
     private PortfolioDto portfolioDto;
+
+    public PortfolioDtoBuilder(){
+      portfolioDto = new PortfolioDto();
+    }
 
     public PortfolioDtoBuilder id(Integer id) {
       portfolioDto.setId(id);
@@ -126,6 +124,7 @@ public class PortfolioDto extends BaseDto implements Buildable {
     public PortfolioDto build() {
       return portfolioDto;
     }
+
   }
   //endregion
 }
