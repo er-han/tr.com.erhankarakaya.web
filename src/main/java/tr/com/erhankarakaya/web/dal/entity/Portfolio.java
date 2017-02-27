@@ -1,5 +1,7 @@
 package tr.com.erhankarakaya.web.dal.entity;
 
+import tr.com.erhankarakaya.web.common.builder.Builder;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
@@ -72,4 +74,48 @@ public class Portfolio extends BaseEntity<Integer> {
   public void setOrderingNumber(Integer orderingNumber) {
     this.orderingNumber = orderingNumber;
   }
+
+  public static class PortfolioBuilder implements Builder<Portfolio> {
+    private Portfolio portfolio;
+
+    public PortfolioBuilder() {
+      portfolio = new Portfolio();
+    }
+
+    public PortfolioBuilder id(Integer id) {
+      portfolio.setId(id);
+      return this;
+    }
+
+    public PortfolioBuilder title(String title) {
+      portfolio.setTitle(title);
+      return this;
+    }
+
+    public PortfolioBuilder description(String description) {
+      portfolio.setDescription(description);
+      return this;
+    }
+
+    public PortfolioBuilder imageFileName(String imageFileName) {
+      portfolio.setImageFileName(imageFileName);
+      return this;
+    }
+
+    public PortfolioBuilder languageId(Integer languageId) {
+      portfolio.setLanguageId(languageId);
+      return this;
+    }
+
+    public PortfolioBuilder orderingNumber(Integer orderingNumber) {
+      portfolio.setOrderingNumber(orderingNumber);
+      return this;
+    }
+
+    @Override
+    public Portfolio build() {
+      return portfolio;
+    }
+  }
+
 }
