@@ -13,6 +13,8 @@ import java.util.List;
  * Created by erhan.karakaya on 2/24/2017.
  */
 public class PortfolioMapper {
+
+  //region dto to entity
   public static PortfolioDto mapEntityToDto(Portfolio portfolio) {
     PortfolioDto.PortfolioDtoBuilder portfolioDtoBuilder = new PortfolioDto.PortfolioDtoBuilder();
     PortfolioDto portfolioDto = portfolioDtoBuilder.id(portfolio.getId())
@@ -39,4 +41,32 @@ public class PortfolioMapper {
 
     return new PageImpl<PortfolioDto>(dtos,pageable,portfolioPage.getTotalElements());
   }
+  //endregion dto to entity
+
+  //region entity to dto
+
+  public static Portfolio mapDtoToEntity(PortfolioDto portfolioDto) {
+    Portfolio.PortfolioBuilder portfolioBuilder = new Portfolio.PortfolioBuilder();
+    Portfolio portfolio = portfolioBuilder.id(portfolioDto.getId())
+        .description(portfolioDto.getDescription())
+        .imageFileName(portfolioDto.getImageFileName())
+        .languageId(portfolioDto.getLanguageId())
+        .orderingNumber(portfolioDto.getOrderingNumber())
+        .title(portfolioDto.getTitle())
+        .build();
+
+    return portfolio;
+  }
+
+  public static List<Portfolio> mapDtosToEntities(Iterable<PortfolioDto> dtos) {
+    List<Portfolio> portfolios = new ArrayList<>();
+
+    dtos.forEach(portfolioDto -> portfolios.add(mapDtoToEntity(portfolioDto)));
+
+    return portfolios;
+  }
+
+
+  //endregion entity to dto
+
 }
