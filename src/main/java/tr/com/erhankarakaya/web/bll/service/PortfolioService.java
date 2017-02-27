@@ -12,4 +12,6 @@ import javax.transaction.Transactional;
 @Transactional
 public interface PortfolioService {
   CrudResult<PortfolioDto> findAll(Pageable pageable);
+
+  CrudResult<PortfolioDto> insertOrUpdate(PortfolioDto portfolioDto);
 }

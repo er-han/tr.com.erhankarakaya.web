@@ -34,12 +34,29 @@ public class PortfolioServiceImpl implements PortfolioService {
     Assert.notNull(messageSource);
     Page<Portfolio> portfolioPage = portfolioRepository.findAll(pageable);
 
-    Page<PortfolioDto> portfolioDtoPage = PortfolioMapper.mapPageEntityToPageDto(portfolioPage,pageable);
+    Page<PortfolioDto> portfolioDtoPage = PortfolioMapper.mapPageEntityToPageDto(portfolioPage, pageable);
 
     CrudResult<PortfolioDto> crudResult = new CrudResult<>();
     //crudResult.setMessage(messageSource.getMessage("crudresult.success", null, new Locale("tr")));
     crudResult.setReturnDtos(portfolioDtoPage);
     crudResult.setResult(ResultEnum.SUCCESS);
+
+    return crudResult;
+  }
+
+  @Override
+  public CrudResult<PortfolioDto> insertOrUpdate(PortfolioDto portfolioDto) {
+    Portfolio portfolio = PortfolioMapper.mapDtoToEntity(portfolioDto);
+
+    CrudResult<PortfolioDto> crudResult = new CrudResult<>();
+
+    try {
+      portfolio = portfolioRepository.save(portfolio);
+      crudResult.setResult(ResultEnum.SUCCESS);
+      crudResult.setReturnDto(PortfolioMapper.mapEntityToDto(portfolio));
+    } catch (Exception e) {
+      crudResult.setResult(ResultEnum.ERROR);
+    }
 
     return crudResult;
   }

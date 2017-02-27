@@ -53,4 +53,5 @@ public class PortfolioServiceTest {
     assertEquals(0,crudResult.getReturnDtos().get().getTotalElements());
   }
 
+
 }
