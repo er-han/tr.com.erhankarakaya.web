@@ -14,6 +14,7 @@ import tr.com.erhankarakaya.web.common.enums.ResultEnum;
 import tr.com.erhankarakaya.web.dal.entity.Portfolio;
 import tr.com.erhankarakaya.web.dal.repository.PortfolioRepository;
 
+import java.util.List;
 import java.util.Locale;
 
 
@@ -30,19 +31,19 @@ public class PortfolioServiceImpl implements PortfolioService {
   private PortfolioRepository portfolioRepository;
 
   @Override
-  public CrudResult<PortfolioDto> findAll(Pageable pageable) {
-    Assert.notNull(messageSource);
-    Page<Portfolio> portfolioPage = portfolioRepository.findAll(pageable);
+  public CrudResult<PortfolioDto> findAll() {
+    List<Portfolio> portfolios = portfolioRepository.findAll();
 
-    Page<PortfolioDto> portfolioDtoPage = PortfolioMapper.mapPageEntityToPageDto(portfolioPage, pageable);
+    List<PortfolioDto> portfolioDtos = PortfolioMapper.mapEntitiesToDtos(portfolios);
 
     CrudResult<PortfolioDto> crudResult = new CrudResult<>();
     //crudResult.setMessage(messageSource.getMessage("crudresult.success", null, new Locale("tr")));
-    crudResult.setReturnDtos(portfolioDtoPage);
+    crudResult.setReturnDtos(portfolioDtos);
     crudResult.setResult(ResultEnum.SUCCESS);
 
     return crudResult;
   }
+
 
   @Override
   public CrudResult<PortfolioDto> insertOrUpdate(PortfolioDto portfolioDto) {

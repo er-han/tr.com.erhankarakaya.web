@@ -15,7 +15,7 @@ import java.util.Optional;
 public class CrudResult<T> {
   private ResultEnum result;
   private Optional<T> returnDto;
-  private Optional<Page<T>> returnPageDtos;
+  private Optional<List<T>> returnDtos;
   private String message;
 
   public ResultEnum getResult() {
@@ -50,12 +50,12 @@ public class CrudResult<T> {
     return getResult().isSuccess();
   }
 
-  public Optional<Page<T>> getReturnDtos() {
-    return returnPageDtos;
+  public Optional<List<T>> getReturnDtos() {
+    return returnDtos;
   }
 
-  public void setReturnDtos(Page<T> returnPageDtos) {
-    this.returnPageDtos = Optional.of(returnPageDtos);
+  public void setReturnDtos(List<T> returnPageDtos) {
+    this.returnDtos = Optional.of(returnPageDtos);
   }
 
 }

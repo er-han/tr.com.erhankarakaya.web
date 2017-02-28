@@ -1,4 +1,4 @@
-package tr.com.erhankarakaya.web.config;
+package tr.com.erhankarakaya.web;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

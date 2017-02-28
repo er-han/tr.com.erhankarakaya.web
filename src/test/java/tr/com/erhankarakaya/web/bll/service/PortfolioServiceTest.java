@@ -53,13 +53,11 @@ public class PortfolioServiceTest {
   @Test
   public void whenNoEntryFound_ShouldReturnEmptyResult() {
     List<Portfolio> portfolios = new ArrayList<>();
-    Page<Portfolio> portfolioPage = new PageImpl<Portfolio>(portfolios);
+    when(portfolioRepository.findAll()).thenReturn(portfolios);
 
-    when(portfolioRepository.findAll(any(Pageable.class))).thenReturn(portfolioPage);
+    CrudResult<PortfolioDto> crudResult = portfolioService.findAll();
 
-    CrudResult<PortfolioDto> crudResult = portfolioService.findAll(new PageRequest(0, 10));
-
-    assertEquals(0, crudResult.getReturnDtos().get().getTotalElements());
+    assertEquals(0, crudResult.getReturnDtos().get().size());
   }
 
   @Test
@@ -67,14 +65,12 @@ public class PortfolioServiceTest {
     List<Portfolio> portfolios = new ArrayList<>();
     Portfolio portfolio1 = createPortfolio();
     portfolios.add(portfolio1);
-    Page<Portfolio> portfolioPage = new PageImpl<Portfolio>(portfolios);
+    when(portfolioRepository.findAll()).thenReturn(portfolios);
 
-    when(portfolioRepository.findAll(any(Pageable.class))).thenReturn(portfolioPage);
+    CrudResult<PortfolioDto> crudResult = portfolioService.findAll();
 
-    CrudResult<PortfolioDto> crudResult = portfolioService.findAll(new PageRequest(0, 10));
-
-    verify(portfolioRepository, times(1)).findAll(any(Pageable.class));
-    assertEquals(1, crudResult.getReturnDtos().get().getTotalElements());
+    verify(portfolioRepository, times(1)).findAll();
+    assertEquals(1, crudResult.getReturnDtos().get().size());
   }
 
   @Test

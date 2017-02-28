@@ -20,19 +20,17 @@ public class Portfolio extends BaseEntity<Integer> {
   @Size(max = 500)
   @Column(name = "TITLE", columnDefinition = "NVARCHAR2")
   private String title;
-  @Column(name = "DESCRIPTION", columnDefinition = "NVARCHAR2")
+  @Column(name = "DESCRIPTION", columnDefinition = "NCLOB")
   private String description;
   @Size(max = 200)
   @Column(name = "IMAGE_FILE_NAME", columnDefinition = "VARCHAR2")
   private String imageFileName;
-  @NotNull
-  @Column(name = "LANGUAGE_ID", columnDefinition = "INTEGER")
-  private Integer languageId;
+
   @Column(name = "ORDERING_NUMBER", columnDefinition = "INTEGER")
   private Integer orderingNumber;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "LANGUAGE_ID")
+  @JoinColumn(name = "LANGUAGE_ID", insertable = false, updatable = false)
   private Language language;
 
   public String getTitle() {
@@ -59,12 +57,12 @@ public class Portfolio extends BaseEntity<Integer> {
     this.imageFileName = imageFileName;
   }
 
-  public Integer getLanguageId() {
-    return languageId;
+  public Language getLanguage() {
+    return language;
   }
 
-  public void setLanguageId(Integer languageId) {
-    this.languageId = languageId;
+  public void setLanguage(Language language) {
+    this.language = language;
   }
 
   public Integer getOrderingNumber() {
@@ -103,7 +101,9 @@ public class Portfolio extends BaseEntity<Integer> {
     }
 
     public PortfolioBuilder languageId(Integer languageId) {
-      portfolio.setLanguageId(languageId);
+      Language language = new Language();
+      language.setId(languageId);
+      portfolio.setLanguage(language);
       return this;
     }
 

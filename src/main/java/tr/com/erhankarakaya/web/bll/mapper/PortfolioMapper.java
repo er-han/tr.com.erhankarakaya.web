@@ -18,7 +18,7 @@ public class PortfolioMapper {
   public static PortfolioDto mapEntityToDto(Portfolio portfolio) {
     PortfolioDto.PortfolioDtoBuilder portfolioDtoBuilder = new PortfolioDto.PortfolioDtoBuilder();
     PortfolioDto portfolioDto = portfolioDtoBuilder.id(portfolio.getId())
-        .languageId(portfolio.getLanguageId())
+        .languageId(portfolio.getLanguage().getId())
         .orderingNumber(portfolio.getOrderingNumber())
         .description(portfolio.getDescription())
         .imageFileName(portfolio.getDescription())

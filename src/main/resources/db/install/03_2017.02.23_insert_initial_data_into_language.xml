@@ -13,14 +13,14 @@
         </comment>
 
         <insert tableName="LANGUAGE">
-            <column name="ID" value="1"/>
+            <column name="ID" valueNumeric="1"/>
             <column name="NAME" value="Türkçe"/>
             <column name="CODE" value="tr"/>
             <column name="LOCALE" value="tr-TR"/>
         </insert>
 
         <insert tableName="LANGUAGE">
-            <column name="ID" value="2"/>
+            <column name="ID" valueNumeric="2"/>
             <column name="NAME" value="İngilizce"/>
             <column name="CODE" value="en"/>
             <column name="LOCALE" value="en-US"/>

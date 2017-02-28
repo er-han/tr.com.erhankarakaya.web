@@ -11,7 +11,7 @@ public abstract class BaseEntity<IdT extends Serializable> implements Entity<IdT
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idGenerator")
-  @Column(name = "ID", columnDefinition = "INTEGER")
+  @Column(name = "ID")
   protected IdT id;
 
   @Override

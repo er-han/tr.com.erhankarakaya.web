@@ -1,4 +1,4 @@
-package tr.com.erhankarakaya.web.config;
+package tr.com.erhankarakaya.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +18,6 @@ import java.util.Locale;
  * Spring Boot start-up class
  */
 @SpringBootApplication
-@ComponentScan("tr.com.erhankarakaya.web.pl.controller")
 public class Application extends WebMvcConfigurerAdapter {
 
   public static void main(String[] args) {
