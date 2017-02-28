@@ -127,4 +127,24 @@ public class PortfolioDto extends BaseDto {
 
   }
   //endregion
+
+  @Override
+  public String toString() {
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append("[");
+    stringBuilder.append("Id = " + getId());
+    stringBuilder.append(", ");
+    stringBuilder.append("Title = " + getTitle());
+    stringBuilder.append(", ");
+    stringBuilder.append("Description = " + getDescription());
+    stringBuilder.append(", ");
+    stringBuilder.append("Image File Name = " + getImageFileName());
+    stringBuilder.append(", ");
+    stringBuilder.append("Ordering Number = " + getOrderingNumber());
+    stringBuilder.append(", ");
+    stringBuilder.append("Language Id = " + getLanguageId());
+    stringBuilder.append("]");
+
+    return stringBuilder.toString();
+  }
 }

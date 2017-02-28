@@ -25,6 +25,8 @@ import org.springframework.data.domain.Pageable;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
@@ -63,14 +65,7 @@ public class PortfolioServiceTest {
   @Test
   public void whenOneEntryFound_ShouldReturnOneItemContainingList() {
     List<Portfolio> portfolios = new ArrayList<>();
-    Portfolio.PortfolioBuilder portfolioBuilder = new Portfolio.PortfolioBuilder();
-    Portfolio portfolio1 = portfolioBuilder.id(ID)
-        .title(TITLE)
-        .description(DESCRIPTION)
-        .imageFileName(IMAGE_FILE_NAME)
-        .languageId(LANGUAGE.getId())
-        .orderingNumber(ORDERING_NUMBER)
-        .build();
+    Portfolio portfolio1 = createPortfolio();
     portfolios.add(portfolio1);
     Page<Portfolio> portfolioPage = new PageImpl<Portfolio>(portfolios);
 
@@ -78,7 +73,48 @@ public class PortfolioServiceTest {
 
     CrudResult<PortfolioDto> crudResult = portfolioService.findAll(new PageRequest(0, 10));
 
+    verify(portfolioRepository, times(1)).findAll(any(Pageable.class));
     assertEquals(1, crudResult.getReturnDtos().get().getTotalElements());
+  }
+
+  @Test
+  public void whenInsertingAValidEntry_ShouldReturnSuccessAndNewId() {
+    Portfolio portfolio = createPortfolio();
+    when(portfolioRepository.save(any(Portfolio.class))).thenReturn(portfolio);
+
+    PortfolioDto portfolioDto = createPortfolioDtoForInsert();
+    CrudResult<PortfolioDto> crudResult = portfolioService.insertOrUpdate(portfolioDto);
+
+    verify(portfolioRepository, times(1)).save(any(Portfolio.class));
+    assertTrue(crudResult.isSuccess());
+    assertTrue(crudResult.getReturnDto().isPresent());
+    assertEquals(ID,crudResult.getReturnDto().get().getId());
+  }
+
+
+
+  private Portfolio createPortfolio() {
+    Portfolio.PortfolioBuilder portfolioBuilder = new Portfolio.PortfolioBuilder();
+    Portfolio portfolio = portfolioBuilder.id(ID)
+        .title(TITLE)
+        .description(DESCRIPTION)
+        .imageFileName(IMAGE_FILE_NAME)
+        .languageId(LANGUAGE.getId())
+        .orderingNumber(ORDERING_NUMBER)
+        .build();
+    return portfolio;
+  }
+
+  private PortfolioDto createPortfolioDtoForInsert() {
+    PortfolioDto.PortfolioDtoBuilder portfolioBuilder = new PortfolioDto.PortfolioDtoBuilder();
+    PortfolioDto portfolioDto = portfolioBuilder
+        .title(TITLE)
+        .description(DESCRIPTION)
+        .imageFileName(IMAGE_FILE_NAME)
+        .languageId(LANGUAGE.getId())
+        .orderingNumber(ORDERING_NUMBER)
+        .build();
+    return portfolioDto;
   }
 
 }
