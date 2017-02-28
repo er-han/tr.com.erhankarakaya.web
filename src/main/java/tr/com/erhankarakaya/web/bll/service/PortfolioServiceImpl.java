@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 import tr.com.erhankarakaya.web.bll.dto.PortfolioDto;
 import tr.com.erhankarakaya.web.bll.mapper.PortfolioMapper;
 import tr.com.erhankarakaya.web.common.crudresult.CrudResult;
+import tr.com.erhankarakaya.web.common.enums.LanguageEnum;
 import tr.com.erhankarakaya.web.common.enums.ResultEnum;
 import tr.com.erhankarakaya.web.dal.entity.Portfolio;
 import tr.com.erhankarakaya.web.dal.repository.PortfolioRepository;
@@ -33,6 +34,20 @@ public class PortfolioServiceImpl implements PortfolioService {
   @Override
   public CrudResult<PortfolioDto> findAll() {
     List<Portfolio> portfolios = portfolioRepository.findAll();
+
+    List<PortfolioDto> portfolioDtos = PortfolioMapper.mapEntitiesToDtos(portfolios);
+
+    CrudResult<PortfolioDto> crudResult = new CrudResult<>();
+    //crudResult.setMessage(messageSource.getMessage("crudresult.success", null, new Locale("tr")));
+    crudResult.setReturnDtos(portfolioDtos);
+    crudResult.setResult(ResultEnum.SUCCESS);
+
+    return crudResult;
+  }
+
+  @Override
+  public CrudResult<PortfolioDto> findAllByLanguageId(LanguageEnum languageEnum) {
+    List<Portfolio> portfolios = portfolioRepository.findAllByLanguageId(languageEnum.getId());
 
     List<PortfolioDto> portfolioDtos = PortfolioMapper.mapEntitiesToDtos(portfolios);
 
