@@ -3,6 +3,7 @@ package tr.com.erhankarakaya.web.config;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -17,6 +18,7 @@ import java.util.Locale;
  * Spring Boot start-up class
  */
 @SpringBootApplication
+@ComponentScan("tr.com.erhankarakaya.web.pl.controller")
 public class Application extends WebMvcConfigurerAdapter {
 
   public static void main(String[] args) {
