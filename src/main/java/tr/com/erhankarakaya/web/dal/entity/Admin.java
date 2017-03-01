@@ -1,5 +1,7 @@
 package tr.com.erhankarakaya.web.dal.entity;
 
+import tr.com.erhankarakaya.web.common.builder.Builder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
@@ -36,5 +38,34 @@ public class Admin extends BaseEntity<Integer>{
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public static class AdminBuilder implements Builder<Admin> {
+
+    private Admin admin;
+
+    public AdminBuilder() {
+      admin = new Admin();
+    }
+
+    public AdminBuilder id(Integer id) {
+      this.admin.setId(id);
+      return this;
+    }
+
+    public AdminBuilder username(String username) {
+      this.admin.setUsername(username);
+      return this;
+    }
+
+    public AdminBuilder password(String password) {
+      this.admin.setPassword(password);
+      return this;
+    }
+
+    @Override
+    public Admin build() {
+      return admin;
+    }
   }
 }
