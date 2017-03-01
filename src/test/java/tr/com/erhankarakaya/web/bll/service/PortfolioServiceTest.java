@@ -8,9 +8,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tr.com.erhankarakaya.web.bll.dto.PortfolioDto;
 import tr.com.erhankarakaya.web.common.crudresult.CrudResult;
 import tr.com.erhankarakaya.web.common.enums.LanguageEnum;
+import tr.com.erhankarakaya.web.dal.entity.Language;
 import tr.com.erhankarakaya.web.dal.entity.Portfolio;
 import tr.com.erhankarakaya.web.dal.repository.PortfolioRepository;
 
+import javax.sound.sampled.Port;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +81,6 @@ public class PortfolioServiceTest {
   }
 
 
-
   private Portfolio createPortfolio() {
     Portfolio.PortfolioBuilder portfolioBuilder = new Portfolio.PortfolioBuilder();
     Portfolio portfolio = portfolioBuilder.id(ID)
@@ -87,6 +88,18 @@ public class PortfolioServiceTest {
         .description(DESCRIPTION)
         .imageFileName(IMAGE_FILE_NAME)
         .languageId(LANGUAGE.getId())
+        .orderingNumber(ORDERING_NUMBER)
+        .build();
+    return portfolio;
+  }
+
+  private Portfolio createPortfolio(LanguageEnum languageEnum) {
+    Portfolio.PortfolioBuilder portfolioBuilder = new Portfolio.PortfolioBuilder();
+    Portfolio portfolio = portfolioBuilder.id(ID)
+        .title(TITLE)
+        .description(DESCRIPTION)
+        .imageFileName(IMAGE_FILE_NAME)
+        .languageId(languageEnum.getId())
         .orderingNumber(ORDERING_NUMBER)
         .build();
     return portfolio;

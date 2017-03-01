@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import tr.com.erhankarakaya.web.bll.dto.PortfolioDto;
 import tr.com.erhankarakaya.web.bll.mapper.PortfolioMapper;
+import tr.com.erhankarakaya.web.common.crudresult.CountResult;
 import tr.com.erhankarakaya.web.common.crudresult.CrudResult;
 import tr.com.erhankarakaya.web.common.enums.LanguageEnum;
 import tr.com.erhankarakaya.web.common.enums.ResultEnum;
@@ -81,5 +82,18 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     return crudResult;
+  }
+
+  @Override
+  public CountResult<PortfolioDto> countByLanguageId(LanguageEnum languageEnum) {
+    CountResult<PortfolioDto> countResult = new CountResult<>();
+    try {
+      long count = portfolioRepository.countByLanguageId(languageEnum.getId());
+      countResult.setCount(count);
+      countResult.setResult(ResultEnum.SUCCESS);
+    } catch (Exception e) {
+      countResult.setResult(ResultEnum.ERROR);
+    }
+    return countResult;
   }
 }
