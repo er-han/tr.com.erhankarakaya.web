@@ -9,4 +9,7 @@ import tr.com.erhankarakaya.web.dal.entity.Admin;
  */
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Integer> {
+  Admin findByUsernameAndPassword(String name, String password);
+
+  Admin findByUsername(String name);
 }
