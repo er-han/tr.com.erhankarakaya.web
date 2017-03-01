@@ -31,11 +31,17 @@ public class PortfolioServiceImpl implements PortfolioService {
   @Autowired
   private PortfolioRepository portfolioRepository;
 
+  private PortfolioMapper portfolioMapper;
+
+  public PortfolioServiceImpl() {
+    portfolioMapper = new PortfolioMapper();
+  }
+
   @Override
   public CrudResult<PortfolioDto> findAll() {
     List<Portfolio> portfolios = portfolioRepository.findAll();
 
-    List<PortfolioDto> portfolioDtos = PortfolioMapper.mapEntitiesToDtos(portfolios);
+    List<PortfolioDto> portfolioDtos = portfolioMapper.mapEntitiesToDtos(portfolios);
 
     CrudResult<PortfolioDto> crudResult = new CrudResult<>();
     //crudResult.setMessage(messageSource.getMessage("crudresult.success", null, new Locale("tr")));
@@ -49,7 +55,7 @@ public class PortfolioServiceImpl implements PortfolioService {
   public CrudResult<PortfolioDto> findAllByLanguageId(LanguageEnum languageEnum) {
     List<Portfolio> portfolios = portfolioRepository.findAllByLanguageId(languageEnum.getId());
 
-    List<PortfolioDto> portfolioDtos = PortfolioMapper.mapEntitiesToDtos(portfolios);
+    List<PortfolioDto> portfolioDtos = portfolioMapper.mapEntitiesToDtos(portfolios);
 
     CrudResult<PortfolioDto> crudResult = new CrudResult<>();
     //crudResult.setMessage(messageSource.getMessage("crudresult.success", null, new Locale("tr")));
@@ -62,14 +68,14 @@ public class PortfolioServiceImpl implements PortfolioService {
 
   @Override
   public CrudResult<PortfolioDto> insertOrUpdate(PortfolioDto portfolioDto) {
-    Portfolio portfolio = PortfolioMapper.mapDtoToEntity(portfolioDto);
+    Portfolio portfolio = portfolioMapper.mapDtoToEntity(portfolioDto);
 
     CrudResult<PortfolioDto> crudResult = new CrudResult<>();
 
     try {
       portfolio = portfolioRepository.save(portfolio);
       crudResult.setResult(ResultEnum.SUCCESS);
-      crudResult.setReturnDto(PortfolioMapper.mapEntityToDto(portfolio));
+      crudResult.setReturnDto(portfolioMapper.mapEntityToDto(portfolio));
     } catch (Exception e) {
       crudResult.setResult(ResultEnum.ERROR);
     }
