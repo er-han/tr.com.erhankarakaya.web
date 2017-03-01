@@ -12,4 +12,5 @@ import java.util.List;
 @Repository
 public interface PortfolioRepository extends BaseRepository<Portfolio, Integer> {
   List<Portfolio> findAllByLanguageId(Integer languageId);
+  long countByLanguageId(Integer languageId);
 }
