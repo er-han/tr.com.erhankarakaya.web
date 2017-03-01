@@ -1,11 +1,17 @@
 package tr.com.erhankarakaya.web.bll.dto;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import tr.com.erhankarakaya.web.common.builder.Builder;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by erhan.karakaya on 3/1/2017.
  */
-public class AdminDto extends BaseDto {
+public class AdminDto extends BaseDto implements UserDetails {
 
   private Integer id;
   private String username;
@@ -23,8 +29,35 @@ public class AdminDto extends BaseDto {
     return username;
   }
 
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
+
   public void setUsername(String username) {
     this.username = username;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    Collection<GrantedAuthority> authorities = new ArrayList<>();
+    authorities.add(new SimpleGrantedAuthority("Admin"));
+    return authorities;
   }
 
   public String getPassword() {
