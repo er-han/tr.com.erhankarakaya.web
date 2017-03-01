@@ -12,10 +12,10 @@ import java.util.List;
 /**
  * Created by erhan.karakaya on 2/24/2017.
  */
-public class PortfolioMapper {
+public class PortfolioMapper extends BaseMapper<Portfolio, PortfolioDto> {
 
   //region dto to entity
-  public static PortfolioDto mapEntityToDto(Portfolio portfolio) {
+  public PortfolioDto mapEntityToDto(Portfolio portfolio) {
     PortfolioDto.PortfolioDtoBuilder portfolioDtoBuilder = new PortfolioDto.PortfolioDtoBuilder();
     PortfolioDto portfolioDto = portfolioDtoBuilder.id(portfolio.getId())
         .languageId(portfolio.getLanguage().getId())
@@ -28,24 +28,11 @@ public class PortfolioMapper {
     return portfolioDto;
   }
 
-  public static List<PortfolioDto> mapEntitiesToDtos(Iterable<Portfolio> entities) {
-    List<PortfolioDto> dtos = new ArrayList<>();
-
-    entities.forEach(portfolio -> dtos.add(mapEntityToDto(portfolio)));
-
-    return dtos;
-  }
-
-  public static Page<PortfolioDto> mapPageEntityToPageDto(Page<Portfolio> portfolioPage, Pageable pageable) {
-    List<PortfolioDto> dtos = mapEntitiesToDtos(portfolioPage.getContent());
-
-    return new PageImpl<PortfolioDto>(dtos,pageable,portfolioPage.getTotalElements());
-  }
   //endregion dto to entity
 
   //region entity to dto
 
-  public static Portfolio mapDtoToEntity(PortfolioDto portfolioDto) {
+  public Portfolio mapDtoToEntity(PortfolioDto portfolioDto) {
     Portfolio.PortfolioBuilder portfolioBuilder = new Portfolio.PortfolioBuilder();
     Portfolio portfolio = portfolioBuilder.id(portfolioDto.getId())
         .description(portfolioDto.getDescription())
@@ -57,15 +44,6 @@ public class PortfolioMapper {
 
     return portfolio;
   }
-
-  public static List<Portfolio> mapDtosToEntities(Iterable<PortfolioDto> dtos) {
-    List<Portfolio> portfolios = new ArrayList<>();
-
-    dtos.forEach(portfolioDto -> portfolios.add(mapDtoToEntity(portfolioDto)));
-
-    return portfolios;
-  }
-
 
   //endregion entity to dto
 
