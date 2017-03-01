@@ -9,7 +9,7 @@ import tr.com.erhankarakaya.web.common.enums.LanguageEnum;
 /**
  * Created by erhan.karakaya on 2/24/2017.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+
 public class PortfolioDtoTest {
 
   @Test
