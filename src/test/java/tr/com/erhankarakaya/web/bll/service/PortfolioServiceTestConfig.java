@@ -9,7 +9,7 @@ import tr.com.erhankarakaya.web.dal.repository.PortfolioRepository;
  * Created by erhan.karakaya on 2/27/2017.
  */
 @TestConfiguration
-public class PortfolioTestConfig {
+public class PortfolioServiceTestConfig {
   @Bean
   public PortfolioRepository portfolioRepository() {
     PortfolioRepository portfolioRepository = Mockito.mock(PortfolioRepository.class);
