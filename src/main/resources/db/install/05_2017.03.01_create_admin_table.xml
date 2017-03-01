@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="create-admin-table" author="Erhan Karakaya">
+        <comment>
+            1. Creates 'ADMIN' table.
+            2. Set 'ID' column as PrimaryKey.
+            3. Set 'ID' column as NotNull.
+            4. Set 'USERNAME' column as NotNull.
+            5. Set 'PASSWORD' column as NotNull.
+        </comment>
+
+        <createTable tableName="ADMIN">
+            <column name="ID" type="${integerType}" autoIncrement="${autoIncrement}"/>
+            <column name="USERNAME" type="${nvarcharType}(100)"/>
+            <column name="PASSWORD" type="${nvarcharType}(100)"/>
+        </createTable>
+
+        <addPrimaryKey tableName="ADMIN" columnNames="ID" constraintName="PK_Admin_Id"/>
+
+        <sql dbms="oracle">
+            ALTER TABLE ADMIN
+            ADD CONSTRAINT NN_ADMIN_ID
+            CHECK (ID IS NOT NULL);
+
+            ALTER TABLE ADMIN
+            ADD CONSTRAINT NN_ADMIN_NAME
+            CHECK (USERNAME IS NOT NULL);
+
+            ALTER TABLE ADMIN
+            ADD CONSTRAINT NN_ADMIN_PASSWORD
+            CHECK (PASSWORD IS NOT NULL);
+        </sql>
+    </changeSet>
+
+    <changeSet id="add-sequence-for-admin-id" author="Erhan Karakaya" dbms="oracle">
+        <comment>
+            Add sequence for ID column of ADMIN table
+        </comment>
+
+        <createSequence sequenceName="SEQ_ADMIN_ID" startValue="1" incrementBy="1"/>
+    </changeSet>
+</databaseChangeLog>

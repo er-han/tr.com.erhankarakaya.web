@@ -10,5 +10,7 @@
     <include file="db/install/02_2017.02.23_create_portfolio_table.xml"/>
     <include file="db/install/03_2017.02.23_insert_initial_data_into_language.xml"/>
     <include file="db/install/04_2017.02.23_insert_test_data_into_portfolio.xml"/>
+    <include file="db/install/05_2017.03.01_create_admin_table.xml"/>
+    <include file="db/install/06_2017.03.01_insert_initial_data_into_admin.xml"/>
 
 </databaseChangeLog>

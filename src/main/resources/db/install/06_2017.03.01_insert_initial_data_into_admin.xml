@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet id="insert-initial-data-into-admin" author="Erhan Karakaya">
+        <comment>
+            1. insert initial data into ADMIN table
+            2. increase sequence of ADMIN table (dbms=oracle)
+        </comment>
+
+        <insert tableName="ADMIN">
+            <column name="ID" valueNumeric="1"/>
+            <column name="USERNAME" value="er-han"/>
+            <column name="PASSWORD" value="$2a$04$M0fa7bsKsu7vMI0X/So8ieFG/2gCGC/iTgMa461S0Uzf0zqtGq28W"/>
+        </insert>
+
+        <sql dbms="oracle">
+            select SEQ_ADMIN_ID.nextval from dual;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
