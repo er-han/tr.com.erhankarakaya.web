@@ -8,10 +8,7 @@ import java.util.List;
 /**
  * Created by erhan.karakaya on 3/1/2017.
  */
-public interface Mapper<EntityT extends Entity, DtoT extends Dto> {
-  DtoT mapEntityToDto(EntityT entityT);
-
-  List<DtoT> mapEntitiesToDtos(List<EntityT> entityTs);
+public interface Mapper<EntityT extends Entity, DtoT extends Dto> extends ListMapper<EntityT, DtoT>{
 
   EntityT mapDtoToEntity(DtoT dtoT);
 
