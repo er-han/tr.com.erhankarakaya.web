@@ -1,6 +1,5 @@
 package tr.com.erhankarakaya.web.bll.dto;
 
-import com.sun.xml.internal.ws.wsdl.writer.document.Port;
 import tr.com.erhankarakaya.web.common.builder.Builder;
 
 /**
