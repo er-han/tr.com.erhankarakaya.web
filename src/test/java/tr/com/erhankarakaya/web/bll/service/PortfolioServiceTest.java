@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -78,6 +79,18 @@ public class PortfolioServiceTest {
     assertTrue(crudResult.isSuccess());
     assertTrue(crudResult.getReturnDto().isPresent());
     assertEquals(ID,crudResult.getReturnDto().get().getId());
+  }
+
+  @Test
+  public void whenNoEntryFoundById_ShouldReturnEmptyResult() {
+    when(portfolioRepository.findOne(anyInt())).thenReturn(null);
+
+    CrudResult<PortfolioDto> crudResult = portfolioService.findById(ID);
+
+    verify(portfolioRepository, times(1)).findOne(anyInt());
+    assertNotNull(crudResult);
+    assertFalse(crudResult.isSuccess());
+    assertFalse(crudResult.getReturnDto().isPresent());
   }
 
 
