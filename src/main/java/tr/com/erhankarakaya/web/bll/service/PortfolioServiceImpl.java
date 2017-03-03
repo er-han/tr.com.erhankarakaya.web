@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import tr.com.erhankarakaya.web.bll.dto.PortfolioDto;
+import tr.com.erhankarakaya.web.bll.dto.PortfolioListDto;
+import tr.com.erhankarakaya.web.bll.mapper.PortfolioListMapper;
 import tr.com.erhankarakaya.web.bll.mapper.PortfolioMapper;
 import tr.com.erhankarakaya.web.common.crudresult.CountResult;
 import tr.com.erhankarakaya.web.common.crudresult.CrudResult;
@@ -95,5 +97,20 @@ public class PortfolioServiceImpl implements PortfolioService {
       countResult.setResult(ResultEnum.ERROR);
     }
     return countResult;
+  }
+
+  @Override
+  public CrudResult<PortfolioListDto> findAllForList() {
+    CrudResult<PortfolioListDto> crudResult = new CrudResult<>();
+    try {
+      List<Portfolio> portfolios = portfolioRepository.findAll();
+      PortfolioListMapper portfolioListMapper = new PortfolioListMapper();
+      List<PortfolioListDto> portfolioListDtos = portfolioListMapper.mapEntitiesToDtos(portfolios);
+      crudResult.setReturnDtos(portfolioListDtos);
+      crudResult.setResult(ResultEnum.SUCCESS);
+    } catch (Exception e) {
+      crudResult.setResult(ResultEnum.WARNING);
+    }
+    return crudResult;
   }
 }
