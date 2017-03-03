@@ -3,6 +3,7 @@ package tr.com.erhankarakaya.web.bll.mapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.Assert;
 import tr.com.erhankarakaya.web.bll.dto.PortfolioDto;
 import tr.com.erhankarakaya.web.dal.entity.Portfolio;
 
@@ -16,6 +17,7 @@ public class PortfolioMapper extends BaseMapper<Portfolio, PortfolioDto> {
 
   //region dto to entity
   public PortfolioDto mapEntityToDto(Portfolio portfolio) {
+    Assert.notNull(portfolio);
     PortfolioDto.PortfolioDtoBuilder portfolioDtoBuilder = new PortfolioDto.PortfolioDtoBuilder();
     PortfolioDto portfolioDto = portfolioDtoBuilder.id(portfolio.getId())
         .languageId(portfolio.getLanguage().getId())
