@@ -41,16 +41,37 @@ public class PortfolioServiceImpl implements PortfolioService {
   }
 
   @Override
-  public CrudResult<PortfolioDto> findAll() {
-    List<Portfolio> portfolios = portfolioRepository.findAll();
-
-    List<PortfolioDto> portfolioDtos = portfolioMapper.mapEntitiesToDtos(portfolios);
-
+  public CrudResult<PortfolioDto> findById(Integer id) {
     CrudResult<PortfolioDto> crudResult = new CrudResult<>();
-    //crudResult.setMessage(messageSource.getMessage("crudresult.success", null, new Locale("tr")));
-    crudResult.setReturnDtos(portfolioDtos);
-    crudResult.setResult(ResultEnum.SUCCESS);
 
+    try {
+      Portfolio portfolio = portfolioRepository.findOne(id);
+      PortfolioDto portfolioDto = portfolioMapper.mapEntityToDto(portfolio);
+      crudResult.setResult(ResultEnum.SUCCESS);
+      crudResult.setReturnDto(portfolioDto);
+    } catch (Exception e) {
+      crudResult.setResult(ResultEnum.ERROR);
+    }
+
+    return crudResult;
+
+  }
+
+  @Override
+  public CrudResult<PortfolioDto> findAll() {
+    CrudResult<PortfolioDto> crudResult = new CrudResult<>();
+
+    try {
+      List<Portfolio> portfolios = portfolioRepository.findAll();
+
+      List<PortfolioDto> portfolioDtos = portfolioMapper.mapEntitiesToDtos(portfolios);
+
+      //crudResult.setMessage(messageSource.getMessage("crudresult.success", null, new Locale("tr")));
+      crudResult.setReturnDtos(portfolioDtos);
+      crudResult.setResult(ResultEnum.SUCCESS);
+    } catch (Exception e) {
+      crudResult.setResult(ResultEnum.ERROR);
+    }
     return crudResult;
   }
 

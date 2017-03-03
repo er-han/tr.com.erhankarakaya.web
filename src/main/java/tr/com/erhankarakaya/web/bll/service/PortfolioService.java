@@ -15,6 +15,7 @@ import javax.transaction.Transactional;
 @Transactional
 public interface PortfolioService {
 
+  CrudResult<PortfolioDto> findById(Integer id);
   CrudResult<PortfolioDto> findAll();
   CrudResult<PortfolioDto> findAllByLanguageId(LanguageEnum languageEnum);
   CrudResult<PortfolioDto> insertOrUpdate(PortfolioDto portfolioDto);
