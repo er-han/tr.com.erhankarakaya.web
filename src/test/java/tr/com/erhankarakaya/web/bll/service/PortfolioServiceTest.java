@@ -94,6 +94,22 @@ public class PortfolioServiceTest {
   }
 
 
+  @Test
+  public void whenOneResultFoundById_ShouldReturnCorrectResult() {
+    Portfolio portfolio = createPortfolio();
+    when(portfolioRepository.findOne(anyInt())).thenReturn(portfolio);
+
+    CrudResult<PortfolioDto> crudResult = portfolioService.findById(ID);
+
+    verify(portfolioRepository, times(1)).findOne(anyInt());
+    assertNotNull(crudResult);
+    assertTrue(crudResult.isSuccess());
+    assertTrue(crudResult.getReturnDto().isPresent());
+    assertEquals(ID, crudResult.getReturnDto().get().getId());
+  }
+
+
+
   private Portfolio createPortfolio() {
     Portfolio.PortfolioBuilder portfolioBuilder = new Portfolio.PortfolioBuilder();
     Portfolio portfolio = portfolioBuilder.id(ID)
