@@ -27,6 +27,9 @@ public class CrudResult<T> {
   }
 
   public Optional<T> getReturnDto() {
+    if (returnDto==null) {
+      returnDto = Optional.empty();
+    }
     return returnDto;
   }
 
