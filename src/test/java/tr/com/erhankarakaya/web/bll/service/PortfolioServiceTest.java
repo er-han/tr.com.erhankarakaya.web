@@ -1,5 +1,6 @@
 package tr.com.erhankarakaya.web.bll.service;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 /**
@@ -43,6 +42,11 @@ public class PortfolioServiceTest {
 
   @Autowired
   private PortfolioService portfolioService;
+
+  @Before
+  public void setUp() {
+    reset(portfolioRepository);
+  }
 
   @Test
   public void whenNoEntryFound_ShouldReturnEmptyResult() {
@@ -78,7 +82,7 @@ public class PortfolioServiceTest {
     verify(portfolioRepository, times(1)).save(any(Portfolio.class));
     assertTrue(crudResult.isSuccess());
     assertTrue(crudResult.getReturnDto().isPresent());
-    assertEquals(ID,crudResult.getReturnDto().get().getId());
+    assertEquals(ID, crudResult.getReturnDto().get().getId());
   }
 
   @Test
@@ -107,7 +111,6 @@ public class PortfolioServiceTest {
     assertTrue(crudResult.getReturnDto().isPresent());
     assertEquals(ID, crudResult.getReturnDto().get().getId());
   }
-
 
 
   private Portfolio createPortfolio() {
