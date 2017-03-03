@@ -15,9 +15,8 @@ import java.security.Principal;
 /**
  * Created by erhan.karakaya on 2/28/2017.
  */
-@Controller
-@RequestMapping("/admin")
-public class AdminController {
+@Controller("adminHomeController")
+public class HomeController extends BaseAdminController {
 
   @Autowired
   private PortfolioService portfolioService;
