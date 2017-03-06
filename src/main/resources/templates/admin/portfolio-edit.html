@@ -24,26 +24,38 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form role="form" th:object="${portfolio}">
+                            <form role="form" th:object="${portfolio}" method="post" action="" th:action="@{/admin/portfolio/edit}">
                                 <div class="form-group">
                                     <label>Ad</label>
-                                    <input class="form-control" type="text" placeholder="Ad giriniz." th:field="*{title}"/>
+                                    <input class="form-control" type="text" placeholder="Ad giriniz."
+                                           th:field="*{title}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Açıklama</label>
-                                   <textarea class="form-control" placeholder="Açıklama giriniz." th:field="*{description}">
+                                    <textarea class="form-control" placeholder="Açıklama giriniz."
+                                              th:field="*{description}">
                                    </textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Dil</label>
-                                    <select class="form-control" type="text" placeholder="Dil seçiniz." th:field="*{languageId}">
+                                    <select class="form-control" type="text" placeholder="Dil seçiniz."
+                                            th:field="*{languageId}">
                                         <option value="1">Türkçe</option>
                                         <option value="2">İngilizce</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Sıra numarası</label>
-                                    <input class="form-control" type="number" placeholder="Sıra numarası giriniz." th:field="*{orderingNumber}"/>
+                                    <input class="form-control" type="number" placeholder="Sıra numarası giriniz."
+                                           th:field="*{orderingNumber}"/>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-warning" type="reset">
+                                        <i class="fa fa-refresh"></i> Değişiklikleri geri al
+                                    </button>
+                                    <button class="btn btn-success" type="submit">
+                                       <i class="fa fa-save"></i> Kaydet
+                                    </button>
                                 </div>
                             </form>
                         </div>
