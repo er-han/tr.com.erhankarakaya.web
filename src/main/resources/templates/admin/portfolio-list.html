@@ -15,7 +15,7 @@
     </div>
     <!-- /.row -->
     <div class="row">
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-6 col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Portfolio Listesi
@@ -39,7 +39,13 @@
                                 <td th:text="*{portfolio.title}">Mark</td>
                                 <td th:text="*{portfolio.language}">Otto</td>
                                 <td th:text="*{portfolio.orderingNumber}">Otto</td>
-                                <td></td>
+                                <td>
+                                    <a class="btn btn-default" href="portfolio-edit.html"
+                                       th:href="@{/admin/portfolio/edit(id=${portfolio.id})}">
+                                        <i class="fa fa-edit    "></i>
+                                        Düzenle</a>
+
+                                </td>
                             </tr>
                             </tbody>
                         </table>
