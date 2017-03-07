@@ -15,7 +15,7 @@
         <insert tableName="PORTFOLIO">
             <column name="ID" value="1"/>
             <column name="DESCRIPTION" value="Lorem ipsum portfolio"/>
-            <column name="IMAGE_FILE_NAME" value="portfolio1.jpg"/>
+            <column name="IMAGE_FILE" value=""/>
             <column name="LANGUAGE_ID" valueNumeric="1"/>
             <column name="ORDERING_NUMBER" value="1"/>
             <column name="TITLE" value="Portfolio 1"/>
@@ -24,7 +24,7 @@
         <insert tableName="PORTFOLIO">
             <column name="ID" value="2"/>
             <column name="DESCRIPTION" value="Lorem ipsum portfolio"/>
-            <column name="IMAGE_FILE_NAME" value="portfolio2.jpg"/>
+            <column name="IMAGE_FILE" value=""/>
             <column name="LANGUAGE_ID" valueNumeric="1"/>
             <column name="ORDERING_NUMBER" value="2"/>
             <column name="TITLE" value="Portfolio 2"/>
@@ -33,7 +33,7 @@
         <insert tableName="PORTFOLIO">
             <column name="ID" value="3"/>
             <column name="DESCRIPTION" value="Lorem ipsum portfolio"/>
-            <column name="IMAGE_FILE_NAME" value="portfolio3.jpg"/>
+            <column name="IMAGE_FILE" value=""/>
             <column name="LANGUAGE_ID" valueNumeric="2"/>
             <column name="ORDERING_NUMBER" value="1"/>
             <column name="TITLE" value="Portfolio 1"/>
@@ -42,7 +42,7 @@
         <insert tableName="PORTFOLIO">
             <column name="ID" value="4"/>
             <column name="DESCRIPTION" value="Lorem ipsum portfolio"/>
-            <column name="IMAGE_FILE_NAME" value="portfolio4.jpg"/>
+            <column name="IMAGE_FILE" value=""/>
             <column name="LANGUAGE_ID" valueNumeric="2"/>
             <column name="ORDERING_NUMBER" value="2"/>
             <column name="TITLE" value="Portfolio 2"/>

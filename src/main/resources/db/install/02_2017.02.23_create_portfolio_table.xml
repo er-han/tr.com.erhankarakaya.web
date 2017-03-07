@@ -20,7 +20,7 @@
             <column name="ID" type="${integerType}" autoIncrement="${autoIncrement}"/>
             <column name="TITLE" type="${nvarcharType}(500)"/>
             <column name="DESCRIPTION" type="${clobType}"/>
-            <column name="IMAGE_FILE_NAME" type="${varcharType}(200)"/>
+            <column name="IMAGE_FILE" type="${blobType}(10M)"/>
             <column name="LANGUAGE_ID" type="${integerType}"/>
             <column name="ORDERING_NUMBER" type="${integerType}"/>
         </createTable>

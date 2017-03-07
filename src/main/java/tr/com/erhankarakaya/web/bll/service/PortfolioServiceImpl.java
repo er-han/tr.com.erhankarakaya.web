@@ -1,5 +1,7 @@
 package tr.com.erhankarakaya.web.bll.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
@@ -15,7 +17,9 @@ import tr.com.erhankarakaya.web.common.crudresult.CountResult;
 import tr.com.erhankarakaya.web.common.crudresult.CrudResult;
 import tr.com.erhankarakaya.web.common.enums.LanguageEnum;
 import tr.com.erhankarakaya.web.common.enums.ResultEnum;
+import tr.com.erhankarakaya.web.dal.entity.Language;
 import tr.com.erhankarakaya.web.dal.entity.Portfolio;
+import tr.com.erhankarakaya.web.dal.repository.LanguageRepository;
 import tr.com.erhankarakaya.web.dal.repository.PortfolioRepository;
 
 import java.util.List;
@@ -28,11 +32,16 @@ import java.util.Locale;
 @Service
 public class PortfolioServiceImpl implements PortfolioService {
 
+  private static final Logger logger = LoggerFactory.getLogger(PortfolioServiceImpl.class);
+
   @Autowired
   protected MessageSource messageSource;
 
   @Autowired
   private PortfolioRepository portfolioRepository;
+
+  @Autowired
+  private LanguageRepository languageRepository;
 
   private PortfolioMapper portfolioMapper;
 
@@ -92,9 +101,17 @@ public class PortfolioServiceImpl implements PortfolioService {
 
   @Override
   public CrudResult<PortfolioDto> insertOrUpdate(PortfolioDto portfolioDto) {
+    logger.info("---- PortfolioDto insertorUpdate:: " + portfolioDto.toString());
+
     Portfolio portfolio = portfolioMapper.mapDtoToEntity(portfolioDto);
 
+    Language language = languageRepository.findOne(portfolioDto.getLanguageId());
+    portfolio.setLanguage(language);
+
+    logger.info("---- Portfolio insertorUpdate:: " + portfolio.toString());
+
     CrudResult<PortfolioDto> crudResult = new CrudResult<>();
+
 
     try {
       portfolio = portfolioRepository.save(portfolio);
@@ -102,6 +119,7 @@ public class PortfolioServiceImpl implements PortfolioService {
       crudResult.setReturnDto(portfolioMapper.mapEntityToDto(portfolio));
     } catch (Exception e) {
       crudResult.setResult(ResultEnum.ERROR);
+      crudResult.setMessage(e.getMessage());
     }
 
     return crudResult;

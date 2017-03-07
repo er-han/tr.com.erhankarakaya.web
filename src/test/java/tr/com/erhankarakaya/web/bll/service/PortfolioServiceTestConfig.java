@@ -3,6 +3,7 @@ package tr.com.erhankarakaya.web.bll.service;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import tr.com.erhankarakaya.web.dal.repository.LanguageRepository;
 import tr.com.erhankarakaya.web.dal.repository.PortfolioRepository;
 
 /**
@@ -14,5 +15,11 @@ public class PortfolioServiceTestConfig {
   public PortfolioRepository portfolioRepository() {
     PortfolioRepository portfolioRepository = Mockito.mock(PortfolioRepository.class);
     return portfolioRepository;
+  }
+
+  @Bean
+  public LanguageRepository languageRepository() {
+    LanguageRepository languageRepository = Mockito.mock(LanguageRepository.class);
+    return languageRepository;
   }
 }

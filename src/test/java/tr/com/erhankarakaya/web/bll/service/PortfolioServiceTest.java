@@ -33,7 +33,7 @@ public class PortfolioServiceTest {
   private static final Integer ID = 20;
   private static final String TITLE = "PORTFOLIO 1";
   private static final String DESCRIPTION = "Lorem Ipsum Portfolio Description.";
-  private static final String IMAGE_FILE_NAME = "portfolio1.jpg";
+  private static final byte[] IMAGE_FILE = new byte[]{};
   private static final LanguageEnum LANGUAGE = LanguageEnum.TR;
   private static final Integer ORDERING_NUMBER = 1;
 
@@ -118,7 +118,7 @@ public class PortfolioServiceTest {
     Portfolio portfolio = portfolioBuilder.id(ID)
         .title(TITLE)
         .description(DESCRIPTION)
-        .imageFileName(IMAGE_FILE_NAME)
+        .imageFile(IMAGE_FILE)
         .languageId(LANGUAGE.getId())
         .orderingNumber(ORDERING_NUMBER)
         .build();
@@ -130,7 +130,7 @@ public class PortfolioServiceTest {
     Portfolio portfolio = portfolioBuilder.id(ID)
         .title(TITLE)
         .description(DESCRIPTION)
-        .imageFileName(IMAGE_FILE_NAME)
+        .imageFile(IMAGE_FILE)
         .languageId(languageEnum.getId())
         .orderingNumber(ORDERING_NUMBER)
         .build();
@@ -142,7 +142,7 @@ public class PortfolioServiceTest {
     PortfolioDto portfolioDto = portfolioBuilder
         .title(TITLE)
         .description(DESCRIPTION)
-        .imageFileName(IMAGE_FILE_NAME)
+        .imageFile(IMAGE_FILE)
         .languageId(LANGUAGE.getId())
         .orderingNumber(ORDERING_NUMBER)
         .build();

@@ -1,6 +1,7 @@
 package tr.com.erhankarakaya.web.dal.entity;
 
 import tr.com.erhankarakaya.web.common.builder.Builder;
+import tr.com.erhankarakaya.web.dal.repository.LanguageRepository;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -22,15 +23,15 @@ public class Portfolio extends BaseEntity<Integer> {
   private String title;
   @Column(name = "DESCRIPTION", columnDefinition = "NCLOB")
   private String description;
-  @Size(max = 200)
-  @Column(name = "IMAGE_FILE_NAME", columnDefinition = "VARCHAR2")
-  private String imageFileName;
+  @Column(name = "IMAGE_FILE", columnDefinition = "BLOB(16M)")
+  private byte[] imageFile;
+
 
   @Column(name = "ORDERING_NUMBER", columnDefinition = "INTEGER")
   private Integer orderingNumber;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "LANGUAGE_ID", insertable = false, updatable = false)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//  @JoinColumn(name = "LANGUAGE_ID", insertable = false, updatable = false)
   private Language language;
 
   public String getTitle() {
@@ -49,12 +50,13 @@ public class Portfolio extends BaseEntity<Integer> {
     this.description = description;
   }
 
-  public String getImageFileName() {
-    return imageFileName;
+
+  public byte[] getImageFile() {
+    return imageFile;
   }
 
-  public void setImageFileName(String imageFileName) {
-    this.imageFileName = imageFileName;
+  public void setImageFile(byte[] imageFile) {
+    this.imageFile = imageFile;
   }
 
   public Language getLanguage() {
@@ -71,6 +73,23 @@ public class Portfolio extends BaseEntity<Integer> {
 
   public void setOrderingNumber(Integer orderingNumber) {
     this.orderingNumber = orderingNumber;
+  }
+
+
+  @Override
+  public String toString() {
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append("[");
+    stringBuilder.append("Id = " + getId());
+    stringBuilder.append(", ");
+    stringBuilder.append("Title = " + getTitle());
+    stringBuilder.append(", ");
+    stringBuilder.append("Description = " + getDescription());
+    stringBuilder.append(", ");
+    stringBuilder.append("Ordering Number = " + getOrderingNumber());
+    stringBuilder.append("]");
+
+    return stringBuilder.toString();
   }
 
   public static class PortfolioBuilder implements Builder<Portfolio> {
@@ -95,14 +114,19 @@ public class Portfolio extends BaseEntity<Integer> {
       return this;
     }
 
-    public PortfolioBuilder imageFileName(String imageFileName) {
-      portfolio.setImageFileName(imageFileName);
+    public PortfolioBuilder imageFile(byte[] imageFile) {
+      portfolio.setImageFile(imageFile);
       return this;
     }
 
     public PortfolioBuilder languageId(Integer languageId) {
       Language language = new Language();
       language.setId(languageId);
+      portfolio.setLanguage(language);
+      return this;
+    }
+
+    public PortfolioBuilder language(Language language) {
       portfolio.setLanguage(language);
       return this;
     }

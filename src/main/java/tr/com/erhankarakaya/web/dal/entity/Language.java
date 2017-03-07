@@ -54,4 +54,21 @@ public class Language extends BaseEntity<Integer> {
     this.locale = locale;
   }
 
+
+  @Override
+  public String toString() {
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append("[");
+    stringBuilder.append("Id = " + getId());
+    stringBuilder.append(", ");
+    stringBuilder.append("Name = " + getName());
+    stringBuilder.append(", ");
+    stringBuilder.append("Code = " + getCode());
+    stringBuilder.append(", ");
+    stringBuilder.append("locale = " + getLocale());
+    stringBuilder.append("]");
+
+    return stringBuilder.toString();
+  }
+
 }

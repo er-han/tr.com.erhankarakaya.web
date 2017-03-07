@@ -1,17 +1,20 @@
 package tr.com.erhankarakaya.web.pl.admin.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import tr.com.erhankarakaya.web.bll.dto.PortfolioDto;
 import tr.com.erhankarakaya.web.bll.dto.PortfolioListDto;
 import tr.com.erhankarakaya.web.bll.service.PortfolioService;
 import tr.com.erhankarakaya.web.common.crudresult.CrudResult;
+import tr.com.erhankarakaya.web.dal.entity.Portfolio;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +23,8 @@ import java.util.List;
  */
 @Controller
 public class PortfolioController extends BaseAdminController {
+
+  private static final Logger logger = LoggerFactory.getLogger(PortfolioController.class);
 
   @Autowired
   private PortfolioService portfolioService;
@@ -45,8 +50,28 @@ public class PortfolioController extends BaseAdminController {
     } else {
       portfolioDto = new PortfolioDto.PortfolioDtoBuilder().build();
     }
-    model.addAttribute("portfolio", portfolioDto );
+    model.addAttribute("portfolio", portfolioDto);
 
     return "/admin/portfolio-edit";
+  }
+
+  @PostMapping("/portfolio/edit")
+  public String setDetailOfPortfolio(@Valid PortfolioDto portfolioDto, BindingResult bindingResult, Model model) {
+    if (bindingResult.hasErrors()) {
+      return "/admin/portfolio-edit";
+    }
+
+
+    CrudResult<PortfolioDto> crudResult = portfolioService.insertOrUpdate(portfolioDto);
+
+    if (!crudResult.isSuccess()) {
+      model.addAttribute("crud", crudResult);
+      model.addAttribute("portfolio", portfolioDto);
+      return "/admin/portfolio-edit";
+    }
+
+//    logger.info("----- portfolio post started ------");
+
+    return "redirect:/admin/portfolio/list";
   }
 }

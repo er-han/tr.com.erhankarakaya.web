@@ -23,7 +23,7 @@ public class PortfolioMapper extends BaseMapper<Portfolio, PortfolioDto> {
         .languageId(portfolio.getLanguage().getId())
         .orderingNumber(portfolio.getOrderingNumber())
         .description(portfolio.getDescription())
-        .imageFileName(portfolio.getDescription())
+        .imageFile(portfolio.getImageFile())
         .title(portfolio.getTitle())
         .build();
 
@@ -38,7 +38,7 @@ public class PortfolioMapper extends BaseMapper<Portfolio, PortfolioDto> {
     Portfolio.PortfolioBuilder portfolioBuilder = new Portfolio.PortfolioBuilder();
     Portfolio portfolio = portfolioBuilder.id(portfolioDto.getId())
         .description(portfolioDto.getDescription())
-        .imageFileName(portfolioDto.getImageFileName())
+        .imageFile(portfolioDto.getimageFile())
         .languageId(portfolioDto.getLanguageId())
         .orderingNumber(portfolioDto.getOrderingNumber())
         .title(portfolioDto.getTitle())

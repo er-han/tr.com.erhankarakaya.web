@@ -7,6 +7,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <property name="clobType" value="NCLOB" dbms="oracle"></property>
+    <property name="blobType" value="BLOB" dbms="oracle"></property>
     <property name="nvarcharType" value="NVARCHAR2" dbms="oracle"></property>
     <property name="varcharType" value="VARCHAR2" dbms="oracle"></property>
     <property name="integerType" value="INTEGER" dbms="oracle"></property>

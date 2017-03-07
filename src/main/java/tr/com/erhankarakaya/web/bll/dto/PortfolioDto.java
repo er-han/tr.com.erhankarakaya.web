@@ -3,23 +3,22 @@ package tr.com.erhankarakaya.web.bll.dto;
 import tr.com.erhankarakaya.web.common.builder.Builder;
 import tr.com.erhankarakaya.web.common.enums.LanguageEnum;
 
+
 /**
  * Created by erhan.karakaya on 2/24/2017.
  */
 public class PortfolioDto extends BaseDto {
 
-  //region constructors
-  private PortfolioDto() {
-
-  }
-  //endregion constructors
-
   //region fields
   private Integer id;
+
   private String title;
+
   private String description;
-  private String imageFileName;
+  private byte[] imageFile;
+
   private Integer orderingNumber;
+
   private Integer languageId;
   //endregion fields
 
@@ -48,12 +47,12 @@ public class PortfolioDto extends BaseDto {
     this.description = description;
   }
 
-  public String getImageFileName() {
-    return imageFileName;
+  public byte[] getimageFile() {
+    return imageFile;
   }
 
-  public void setImageFileName(String imageFileName) {
-    this.imageFileName = imageFileName;
+  public void setimageFile(byte[] imageFile) {
+    this.imageFile = imageFile;
   }
 
   public Integer getOrderingNumber() {
@@ -99,8 +98,8 @@ public class PortfolioDto extends BaseDto {
       return this;
     }
 
-    public PortfolioDtoBuilder imageFileName(String imageFileName) {
-      portfolioDto.setImageFileName(imageFileName);
+    public PortfolioDtoBuilder imageFile(byte[] imageFile) {
+      portfolioDto.setimageFile(imageFile);
       return this;
     }
 
@@ -137,8 +136,6 @@ public class PortfolioDto extends BaseDto {
     stringBuilder.append("Title = " + getTitle());
     stringBuilder.append(", ");
     stringBuilder.append("Description = " + getDescription());
-    stringBuilder.append(", ");
-    stringBuilder.append("Image File Name = " + getImageFileName());
     stringBuilder.append(", ");
     stringBuilder.append("Ordering Number = " + getOrderingNumber());
     stringBuilder.append(", ");
