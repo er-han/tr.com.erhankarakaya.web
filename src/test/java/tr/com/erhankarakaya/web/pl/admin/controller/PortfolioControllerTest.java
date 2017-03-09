@@ -24,12 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 /**
  * Created by erhan.karakaya on 3/8/2017.
  */
@@ -57,7 +59,7 @@ public class PortfolioControllerTest {
 
 
   @Test
-  public void testPortfolioList() throws Exception{
+  public void testPortfolioList() throws Exception {
     List<PortfolioListDto> portfolioDtos = new ArrayList<>();
     PortfolioListDto portfolioListDto = new PortfolioListDto();
     portfolioDtos.add(portfolioListDto);
@@ -69,7 +71,25 @@ public class PortfolioControllerTest {
     mockMvc.perform(get("/admin/portfolio/list"))
         .andExpect(status().isOk())
         .andExpect(view().name("/admin/portfolio-list"))
-        .andExpect(model().attribute("portfolios",portfolioDtos));
+        .andExpect(model().attribute("portfolios", portfolioDtos));
+  }
+
+
+  @Test
+  public void testPortfolioEdit_whenRequestIsGetType() throws Exception {
+    PortfolioDto portfolioDto = new PortfolioDto.PortfolioDtoBuilder()
+        .id(1)
+        .title("TITLE")
+        .build();
+    CrudResult<PortfolioDto> crudResult = new CrudResult<>();
+    crudResult.setReturnDto(portfolioDto);
+    crudResult.setResult(ResultEnum.SUCCESS);
+    when(portfolioService.findById(anyInt())).thenReturn(crudResult);
+
+    mockMvc.perform(get("/admin/portfolio/edit"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("/admin/portfolio-edit"))
+        .andExpect(model().attribute("portfolio", portfolioDto));
   }
 
 }
