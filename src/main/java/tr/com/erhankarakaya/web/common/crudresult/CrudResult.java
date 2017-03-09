@@ -19,7 +19,7 @@ public class CrudResult<T> {
   private String message;
 
   public ResultEnum getResult() {
-    return result;
+    return result==null?ResultEnum.NA:result;
   }
 
   public void setResult(ResultEnum result) {
