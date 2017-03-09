@@ -152,4 +152,14 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
     return crudResult;
   }
+
+  @Override
+  public byte[] getImageDataOfPortfolio(Integer portfolioId) {
+    Portfolio portfolio = portfolioRepository.findOne(portfolioId);
+    if (portfolio==null) {
+      return null;
+    }
+
+    return portfolio.getImageFile();
+  }
 }

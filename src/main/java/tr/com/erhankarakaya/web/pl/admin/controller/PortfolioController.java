@@ -3,6 +3,7 @@ package tr.com.erhankarakaya.web.pl.admin.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +15,10 @@ import tr.com.erhankarakaya.web.bll.service.PortfolioService;
 import tr.com.erhankarakaya.web.common.crudresult.CrudResult;
 import tr.com.erhankarakaya.web.dal.entity.Portfolio;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,11 +60,18 @@ public class PortfolioController extends BaseAdminController {
   }
 
   @PostMapping("/portfolio/edit")
-  public String setDetailOfPortfolio(@Valid PortfolioDto portfolioDto, BindingResult bindingResult, Model model) {
+  public String setDetailOfPortfolio(@Valid PortfolioDto portfolioDto, @RequestParam("image") MultipartFile image, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
       return "/admin/portfolio-edit";
     }
 
+    try {
+      byte[] imageData = image.getBytes();
+      logger.info("--- image data : " + imageData.toString());
+      portfolioDto.setimageFile(imageData);
+    } catch (Exception e) {
+
+    }
 
     CrudResult<PortfolioDto> crudResult = portfolioService.insertOrUpdate(portfolioDto);
 
@@ -74,4 +85,27 @@ public class PortfolioController extends BaseAdminController {
 
     return "redirect:/admin/portfolio/list";
   }
+
+
+//  @GetMapping(value = "/portfolio/image/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+//  public byte[] getPortfolioPhoto(@PathVariable("id") Integer id){
+//    byte[] imageData = portfolioService.getImageDataOfPortfolio(id);
+//    return imageData;
+//  }
+
+  @GetMapping(value = "/portfolio/image/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+  public void getPortfolioPhoto(@PathVariable("id") Integer id, HttpServletResponse response) throws IOException {
+    byte[] imageData = portfolioService.getImageDataOfPortfolio(id);
+
+    response.setHeader("Cache-Control", "no-store");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+    response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+    ServletOutputStream responseOutputStream = response.getOutputStream();
+    responseOutputStream.write(imageData);
+    responseOutputStream.flush();
+    responseOutputStream.close();
+  }
+
+
 }

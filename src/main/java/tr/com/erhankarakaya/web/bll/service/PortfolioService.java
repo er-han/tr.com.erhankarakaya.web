@@ -23,4 +23,6 @@ public interface PortfolioService {
 
   CrudResult<PortfolioListDto> findAllForList();
 
+  byte[] getImageDataOfPortfolio(Integer portfolioId);
+
 }
