@@ -16,6 +16,7 @@ import tr.com.erhankarakaya.web.bll.dto.PortfolioDto;
 import tr.com.erhankarakaya.web.bll.dto.PortfolioListDto;
 import tr.com.erhankarakaya.web.bll.service.PortfolioService;
 import tr.com.erhankarakaya.web.common.crudresult.CrudResult;
+import tr.com.erhankarakaya.web.common.enums.LanguageEnum;
 import tr.com.erhankarakaya.web.common.enums.ResultEnum;
 import tr.com.erhankarakaya.web.dal.entity.Portfolio;
 
@@ -24,11 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -37,6 +39,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PortfolioControllerTest {
+
+  private static final Integer ID = 20;
+  private static final String TITLE = "PORTFOLIO 1";
+  private static final String DESCRIPTION = "Lorem Ipsum Portfolio Description.";
+  private static final byte[] IMAGE_FILE = new byte[]{};
+  private static final LanguageEnum LANGUAGE = LanguageEnum.TR;
+  private static final Integer ORDERING_NUMBER = 1;
+
 
   @InjectMocks
   private PortfolioController portfolioController;
@@ -78,8 +88,8 @@ public class PortfolioControllerTest {
   @Test
   public void testPortfolioEdit_whenRequestIsGetType() throws Exception {
     PortfolioDto portfolioDto = new PortfolioDto.PortfolioDtoBuilder()
-        .id(1)
-        .title("TITLE")
+        .id(ID)
+        .title(TITLE)
         .build();
     CrudResult<PortfolioDto> crudResult = new CrudResult<>();
     crudResult.setReturnDto(portfolioDto);
@@ -91,5 +101,29 @@ public class PortfolioControllerTest {
         .andExpect(view().name("/admin/portfolio-edit"))
         .andExpect(model().attribute("portfolio", portfolioDto));
   }
+
+
+//  @Test
+//  public void testPortfolioEdit_whenRequestIsPostType() throws Exception {
+//    PortfolioDto portfolioDto = new PortfolioDto.PortfolioDtoBuilder()
+//        .id(ID)
+//        .title(TITLE)
+//        .description(DESCRIPTION)
+//        .imageFile(IMAGE_FILE)
+//        .languageId(LANGUAGE.TR.getId())
+//        .orderingNumber(ORDERING_NUMBER)
+//        .build();
+//
+//    CrudResult<PortfolioDto> crudResult = new CrudResult<>();
+//    crudResult.setReturnDto(portfolioDto);
+//    crudResult.setResult(ResultEnum.SUCCESS);
+//    when(portfolioService.insertOrUpdate(any(PortfolioDto.class))).thenReturn(crudResult);
+//
+//    mockMvc.perform(fileUpload("/admin/portfolio/edit").)
+//        .andExpect(status().isOk())
+//        .andExpect(forwardedUrl("/admin/portfolio/edit?id" + portfolioDto.getId()))
+//        .andExpect(view().name("/admin/portfolio-edit"))
+//        .andExpect(model().attribute("portfolio", portfolioDto));
+//  }
 
 }
